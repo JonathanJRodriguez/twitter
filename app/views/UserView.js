@@ -10,7 +10,7 @@ class UserView {
       result.valid = !hasNull(payload);
       if (result.valid) {
           if(checkKeys(payload)){
-            return UserService.create(payload);
+            return UserService.create(payload.id,payload.username,payload.name);
           }
       }
       result.error = "necesitan tener un valor válido";
