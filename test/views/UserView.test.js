@@ -1,4 +1,3 @@
-const { TestWatcher } = require('jest')
 const UserView = require('./../../app/views/UserView')
 
 describe("Tests for UserView", () => {
