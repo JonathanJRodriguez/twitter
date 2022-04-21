@@ -1,14 +1,29 @@
-const UserService = require('./../services/UserService')
+const UserService = require("./../services/UserService");
 
-class UserView{
-static createUser(payload){
-    let result = {error: ""}
-    if(payload != null){
-        return UserService.create(payload)
+class UserView {
+  static createUser(payload) {
+    let result = {
+      valid: false,
+      error: "",
+    };
+    if (payload != null) {
+      result.valid = !hasNull(payload);
+      if (result.valid) {
+        return UserService.create(payload);
+      }
+      result.error = "necesitan tener un valor válido";
+      return result;
     }
-    result.error = "payload no existe"
-    return result
-}
+    result.error = "payload no existe";
+    return result;
+  }
 }
 
-module.exports = UserView
+function hasNull(target) {
+  for (var member in target) {
+    if (target[member] == null) return true;
+  }
+  return false;
+}
+
+module.exports = UserView;
