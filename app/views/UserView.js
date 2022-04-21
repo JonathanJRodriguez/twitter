@@ -9,7 +9,9 @@ class UserView {
     if (payload != null) {
       result.valid = !hasNull(payload);
       if (result.valid) {
-        return UserService.create(payload);
+          if(checkKeys(payload)){
+            return UserService.create(payload);
+          }
       }
       result.error = "necesitan tener un valor válido";
       return result;
@@ -24,6 +26,21 @@ function hasNull(target) {
     if (target[member] == null) return true;
   }
   return false;
+}
+
+function checkKeys(obj){
+    let keyList = Object.keys(obj)
+    let keysToFind = ["username", "id", "name"]
+    let result = []
+    keysToFind.forEach(key => {
+        if(keyList.includes(key)){
+            result.push(true)
+        }
+        else{
+            result.push(false)
+        }
+    })
+    return result.every(ele => ele === true)
 }
 
 module.exports = UserView;
